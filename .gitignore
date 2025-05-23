@@ -1,0 +1,43 @@
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Dependências ---
+node_modules/        # Front e back
+.pnpm/               # Se usar pnpm
+
+# --- Builds ---
+dist/
+build/
+dist-ssr/
+
+# --- Variáveis de ambiente ---
+.env
+.env.local
+.env.*.local
+
+# --- Banco de dados () ---
+*.sqlite
+*.db
+*.db-journal
+
+# --- Diretórios e arquivos de editor ---
+.vscode/
+!.vscode/extensions.json   # Permite subir configs úteis compartilhadas
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Outros ---
+*.local                  # Arquivos locais genéricos
+coverage/                # Relatórios de testes
+.vite/                   # Cache do Vite (React/Vite)

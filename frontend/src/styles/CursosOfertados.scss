@@ -1,0 +1,54 @@
+
+.filters{
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    & button{
+        padding: 4px 17px 4px 16px;
+        border: none;
+        border-radius: 6px;
+        background: #FFF;
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    & .active{
+        background: #0365AB;
+        color: #FFFFFF;
+    }  
+}
+
+
+.card-curse {
+  padding: 0.4rem;
+  width: 298px;
+  height: 330px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.container-cards {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+
+.course-icon{
+   display: flex;
+   justify-self: center;
+}
+
+
+
+.course-info{
+
+
+
+}
+
+.content-info{
+    display: inline;
+}
