@@ -8,8 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # --- Dependências ---
-node_modules/        # Front e back
-.pnpm/               # Se usar pnpm
+node_modules/ 
+
+.npm/backend
+.npm/frontend
 
 # --- Builds ---
 dist/

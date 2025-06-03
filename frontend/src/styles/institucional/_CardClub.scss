@@ -1,0 +1,74 @@
+ 
+ #title-club{
+  color: #0067b1;
+  font-size: 40px;
+ }
+
+.container-cards-club {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 2rem;
+  margin: 10px 120px 200px;
+}
+
+
+.card-club {
+ display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.8rem;
+  width: 220px;
+  height: 260px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+
+    & #club-icon{
+       justify-self: center;
+    width: 80px;
+    height: 80px;
+    }
+
+  & #school {
+    padding: 0.4rem;
+    border-radius: 16px;
+    background: #0067b1;
+    color: #fff;
+    font-size: 0.8rem;
+    color: color(display-p3 1 1 1);
+  
+  }
+
+  & p {
+    color: #3a3a3a;
+    font-weight: 500;
+  }
+}
+
+
+.club-info{
+    display: flex;
+    align-items: center;
+
+    & p{
+        color:#0067b1; 
+    }
+}
+
+#spiral{
+    position: absolute;
+    top: 280vh;
+    bottom: 0;
+    right: 0;
+    left: 65%;
+    width: 90px;
+
+}
+
+
+
+
+
+

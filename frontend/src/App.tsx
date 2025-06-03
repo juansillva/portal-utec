@@ -1,26 +1,38 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Home/Header'
 
-import Home from './pages/Home'
-import About from './pages/About'
-import Curses from './pages/Curses'
-import Uconnect from './pages/Uconnect'
+import Home from './pages/institucional/Home'
+import About from './pages/institucional/About'
+import Curses from './pages/institucional/Courses'
+import AcessoAluno from './pages/institucional/AcessoAluno';
+import LoginProfessor from './pages/institucional/LoginProfessor';
+import FeedAluno from './components/uconnect/FeedAluno';
+import FeedProfessor from './components/uconnect/FeedProfessor';
+import CriarPost from './components/uconnect/CriarPost'
 
-import './styles/Header.scss'
-import './styles/global.scss'
+
+import './styles/style.scss'
+
 
 function App() {
 
   return (
     <>
-    <Header />
     <Router>
       <Routes>
         <Route  path='/' element={<Home />} />
         <Route path='/sobre' element={<About />}  />
         <Route path='/cursos' element={<Curses />} />
-        <Route path='/uconnect' element={<Uconnect />}/>
+        <Route path='/acessoaluno' element={<AcessoAluno />} />
+        <Route path='/loginprofessor' element={<LoginProfessor />} />
+      
+ {/* Uconnect - Aluno */}
+  <Route path="/uconnect/feed/:turma" element={<FeedAluno />} />
+
+  {/* Uconnect - Professor */}
+  <Route path="/uconnect/professor/feed/:turma" element={<FeedProfessor />} />
+  <Route path="/uconnect/professor/criarpost" element={<CriarPost />} />
+
       </Routes>
     </Router>
     </>

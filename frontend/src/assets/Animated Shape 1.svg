@@ -1,0 +1,21 @@
+<svg width="1440" height="889" viewBox="0 0 1440 889" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_394_2011)">
+<rect width="1440" height="889" fill="white" style="fill:white;fill-opacity:1;"/>
+<mask id="mask0_394_2011" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="2094" height="889">
+<path d="M2094 0H0V889H2094V0Z" fill="white" style="fill:white;fill-opacity:1;"/>
+</mask>
+<g mask="url(#mask0_394_2011)">
+<path d="M2094 0H0V889H2094V0Z" fill="#0E2A47" style="fill:#0E2A47;fill:color(display-p3 0.0549 0.1647 0.2784);fill-opacity:1;"/>
+<path d="M178.38 294.51L45.2759 399.871L175.532 466.179L178.38 294.51Z" fill="#1C538E" fill-opacity="0.4" style="fill:#1C538E;fill:color(display-p3 0.1098 0.3255 0.5569);fill-opacity:0.4;"/>
+<path d="M236.605 5L111 119.976L216.395 257L342 142.024L236.605 5Z" fill="#1C538E" fill-opacity="0.4" style="fill:#1C538E;fill:color(display-p3 0.1098 0.3255 0.5569);fill-opacity:0.4;"/>
+<path d="M918.591 784.707C940.654 782.97 952.435 758.797 962.947 737.552C972.728 717.784 981.607 695.753 972.6 675.552C962.594 653.11 941.424 636.784 918.591 638.071C897.202 639.276 884.184 660.909 873.449 681.142C862.677 701.446 852.342 724.341 861.577 745.529C871.92 769.254 894.586 786.596 918.591 784.707Z" fill="#1C538E" fill-opacity="0.4" style="fill:#1C538E;fill:color(display-p3 0.1098 0.3255 0.5569);fill-opacity:0.4;"/>
+<path d="M323.033 868.151C359.684 866.952 393.877 846.507 411.536 811.426C428.596 777.535 424.27 736.479 405.993 703.352C388.331 671.342 357.258 651.692 323.033 651.02C287.656 650.325 253.887 667.511 234.734 699.99C213.825 735.448 205.633 780.944 224.844 817.53C244.137 854.273 284.256 869.419 323.033 868.151Z" fill="#1C538E" fill-opacity="0.4" style="fill:#1C538E;fill:color(display-p3 0.1098 0.3255 0.5569);fill-opacity:0.4;"/>
+</g>
+<path d="M1454.62 557.927L1309.13 477L1235 635.828L1380.49 716.755L1454.62 557.927Z" fill="#1C538E" fill-opacity="0.4" style="fill:#1C538E;fill:color(display-p3 0.1098 0.3255 0.5569);fill-opacity:0.4;"/>
+</g>
+<defs>
+<clipPath id="clip0_394_2011">
+<rect width="1440" height="889" fill="white" style="fill:white;fill-opacity:1;"/>
+</clipPath>
+</defs>
+</svg>
