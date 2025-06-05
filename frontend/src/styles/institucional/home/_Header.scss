@@ -1,0 +1,75 @@
+@import './global.scss';
+
+header{
+    margin-top: 1rem;
+    height: 50px;
+    width: 100%;
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-width: 0.5px;
+    border-color: #d0d0d0;
+}
+
+.content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;   
+    flex-wrap: wrap;       
+
+    & .container-buttons{
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    & #button-student{
+        background-color: #B9B9B9;
+        color: white;
+        transition: 0.5s ease-out;
+
+         
+        &:hover{
+             background-color:#dfdede ;
+        }
+    }
+
+    & #button-teacher{
+        background-color: #0365AB;
+        color: white;
+        transition: 0.5s ease-out;
+
+       
+        &:hover{
+             background-color: #027dd4;
+        }
+    }
+}
+
+.nav-bar {
+    margin: 0 10px 0 8rem;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    gap: 0.8rem;
+    transition: 0.5s ease-out;
+    
+    & .active{
+  color: #0365AB;
+}
+
+    & .normal{
+    color: #b5b5b5;
+}
+
+ & .normal:hover{
+    color: #0365AB;
+}
+
+ 
+}
+
+

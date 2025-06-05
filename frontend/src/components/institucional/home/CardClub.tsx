@@ -1,3 +1,5 @@
+import '../../../styles/institucional/home/_CardClub.scss'
+
 import { CalendarDays } from "lucide-react";
 
 type CardClubProps = {

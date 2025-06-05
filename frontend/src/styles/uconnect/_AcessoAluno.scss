@@ -38,36 +38,6 @@
   display: flex;
   gap: 1rem;
 }
-.card-course {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  width: 50%;
-  align-items: center;
-  justify-items: center;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 8px;
-
-  & img {
-    padding: 0.5rem;
-    width: 32px;
-    height: 32px;
-  }
-
-  & span {
-    display: flex;
-    align-items: center;
-  }
-
-  & p {
-    color: #3a3a3a;
-    font-weight: 600;
-  }
-
-  & li {
-    list-style: none;
-  }
-}
 
 .form-acesso {
   background-color: #043d2f;

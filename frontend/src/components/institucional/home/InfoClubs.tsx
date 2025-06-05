@@ -1,3 +1,4 @@
+import '../../../styles/institucional/home/_InfoClub.scss'
 
 import logoArduino from '../../../assets/logo-arduino.svg'
 import logoLego from '../../../assets/logo-lego.svg'
@@ -18,7 +19,7 @@ const InfoClubs = () => {
       </span>
 
     <Fade triggerOnce direction="right">
-      <div className="container-club">
+      <div className="container-info-club">
         <div className='card-schools'>
           <h1>
             ESCOLAS <br />

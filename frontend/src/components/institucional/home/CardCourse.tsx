@@ -1,3 +1,6 @@
+import '../../../styles/institucional/home/_CardCourses.scss'
+
+
 import { CalendarDays, Clock, User } from "lucide-react";
 import { Fade } from "react-awesome-reveal";
 
@@ -18,7 +21,7 @@ type CardProps = {
 const CardCourse = ({ title, professor, days, time, tag }: CardProps) => {
   return (
     <Fade triggerOnce direction="left">
-      <div className="card-curse">
+      <div className="card-course">
         <div className="tag" style={{ backgroundColor: tag.color }}>
           {tag.label}
         </div>

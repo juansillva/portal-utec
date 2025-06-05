@@ -4,14 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/institucional/Home'
 import About from './pages/institucional/About'
 import Curses from './pages/institucional/Courses'
-import AcessoAluno from './pages/institucional/AcessoAluno';
-import LoginProfessor from './pages/institucional/LoginProfessor';
+import AcessoAluno from './pages/uconnect/AcessoAluno';
+import LoginProfessor from './pages/uconnect/LoginProfessor';
 import FeedAluno from './components/uconnect/FeedAluno';
 import FeedProfessor from './components/uconnect/FeedProfessor';
 import CriarPost from './components/uconnect/CriarPost'
 
-
-import './styles/style.scss'
 
 
 function App() {

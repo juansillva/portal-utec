@@ -1,4 +1,4 @@
-import imageRobot from '../assets/robot-svgrepo-com (1) 1.png'
+import imageRobot from '../assets/robot.png'
 
 export const clubes = [
 

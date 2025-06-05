@@ -1,0 +1,65 @@
+
+@import './global';
+
+.content-hero-left{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+    position: relative;
+    grid-column: 1;
+
+
+    & h1,p{ 
+        color: $black-200;  
+    }
+
+    & h1{
+        margin: 0;
+        font-size: 44px;
+    }
+
+    & a{
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        color: white;
+        padding: 1rem;
+        background-color: $blue-600;
+        border-radius: 4px;
+        transition: 0.5s ease-out;
+    }
+
+    & a:hover{
+
+        background-color: #0095ff;
+    }
+}
+
+.content-hero-right{
+    padding: 1rem;
+    position: relative;
+    grid-column: 2;
+}
+
+
+#details{
+    position: absolute;
+    top: -26px;
+    bottom: 200px;
+    right: 200px;
+    left: -40px;
+    width: 90px;
+        
+}
+
+#details2 {
+    position: absolute;
+    top: 200px;
+    bottom: 0;
+    right: 0;
+    left: 330px;
+    width: 90px;
+   
+}

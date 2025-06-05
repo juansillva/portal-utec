@@ -1,0 +1,208 @@
+.footer {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  padding: 3rem 0 1rem;
+  
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    margin-bottom: 3rem;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+  
+  &__brand {
+    flex: 1;
+    max-width: 350px;
+  }
+  
+  &__logos {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+  
+  &__partner-logos {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+  
+  &__contact {
+    p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #cccccc;
+    }
+  }
+  
+  &__nav {
+    display: flex;
+    gap: 3rem;
+    flex: 2;
+    
+    @media (max-width: 968px) {
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+  
+  &__nav-section {
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        margin-bottom: 0.5rem;
+        
+        a {
+          color: #cccccc;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: color 0.3s ease;
+          
+          &:hover {
+            color: #4a9eff;
+          }
+        }
+      }
+    }
+  }
+  
+  &__bottom {
+    border-top: 1px solid #444444;
+    padding-top: 1.5rem;
+    text-align: left;
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #999999;
+    }
+  }
+}
+
+// UTEC Logo Component
+.utec-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  &__icon {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    
+    .cube {
+      width: 8px;
+      height: 8px;
+      border-radius: 1px;
+      
+      &--orange {
+        background-color: #ff6b35;
+      }
+      
+      &--blue {
+        background-color: #0066cc;
+      }
+      
+      &--green {
+        background-color: #00cc66;
+      }
+    }
+  }
+  
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  
+  &__main {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4a9eff;
+  }
+  
+  &__sub {
+    font-size: 0.7rem;
+    color: #cccccc;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Partner Logos
+.partner-logo {
+  color: #cccccc;
+  
+  &__text {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    text-align: center;
+  }
+  
+  &--recife {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.recife-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border: 2px solid #666666;
+  border-radius: 8px;
+  min-width: 60px;
+  
+  &__crown {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  &__text {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #cccccc;
+    letter-spacing: 1px;
+  }
+}

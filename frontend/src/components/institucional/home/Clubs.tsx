@@ -1,3 +1,5 @@
+import "../../../styles/institucional/home/_InfoClub.scss";
+
 import { useState } from "react";
 import CardClub from "./CardClub";
 import spiral from "../../../assets/spiral.svg";
@@ -11,7 +13,7 @@ const Clubs = () => {
   });
 
   return (
-    <section>
+    <section id="clubs">
       <div className="title-section">
         <h1 id="title-club">CRONOGRAMA</h1>
         <p>Clubes de Programação e Robótica</p>

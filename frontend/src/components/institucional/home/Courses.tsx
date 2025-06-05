@@ -1,3 +1,5 @@
+import "../../../styles/institucional/home/_Courses.scss";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import zigSmall from "../../../assets/zig-width.svg";

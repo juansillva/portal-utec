@@ -1,10 +1,10 @@
+import "../../../styles/institucional/home/_Hero.scss";
+
 import { Link } from "react-router-dom";
 import iconRight from "../../../assets/Right.svg";
 import imageRight from "../../../assets/hero-section-image.svg";
-import details from "../../../assets/spark-2.svg"
-import details2 from "../../../assets/zig-round-2 1.svg"
-
-
+import details from "../../../assets/spark-2.svg";
+import details2 from "../../../assets/zig-round-2 1.svg";
 
 const Hero = () => {
   return (
@@ -16,8 +16,7 @@ const Hero = () => {
           Somos um polo de conhecimento colaborativo, com foco em educação,
           cultura digital e transformação social.
         </p>
-        <Link 
-         to="/sobre">
+        <Link to="/sobre">
           Conheça a UTEC <img src={iconRight} alt="Botão Conheça a UTEC" />
         </Link>
       </div>
