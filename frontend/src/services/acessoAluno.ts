@@ -1,4 +1,3 @@
-
 import api from './api';
 
 export async function acessoAluno(nome: string, turma: string) {
