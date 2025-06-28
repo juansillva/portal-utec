@@ -1,6 +1,6 @@
 const db = require("../database/db");
 
-exports.validarAcesso = (req, res) => {
+exports.acessoAluno = (req, res) => {
   const { nome, turma } = req.body;
 
   if (!nome || !turma) {
@@ -21,7 +21,7 @@ exports.validarAcesso = (req, res) => {
   aluno: {
     nome,
     turma: turma.nome,
-    idTurma: turma.id,
+    turma_id: turma.id,
   },
 });
 });

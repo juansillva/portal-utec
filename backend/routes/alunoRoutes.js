@@ -1,6 +1,7 @@
 const express = require ('express')
 const router = express.Router();
-const {validarAcesso} = require ('../controllers/alunoController')
+const {acessoAluno} = require ('../controllers/alunoController')
 
-router.post('/', validarAcesso)
-module.exports = router;
+router.post('/', acessoAluno)
+
+module.exports = router; 

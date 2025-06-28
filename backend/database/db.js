@@ -6,7 +6,7 @@ const db = new sqlite3.Database(path.resolve(__dirname, "uconnect.db"));
 
 const saltRounds = 10;
 
-const initDB = async () => {
+const initDB = async () => { 
   db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS turmas (
       id INTEGER PRIMARY KEY,
@@ -15,6 +15,7 @@ const initDB = async () => {
 
     db.run(`CREATE TABLE IF NOT EXISTS professores (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      avatar TEXT,
       nome TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
       senha TEXT NOT NULL
@@ -24,8 +25,6 @@ const initDB = async () => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL,
       conteudo TEXT,
-      anexos TEXT,
-      imagens TEXT,
       data_criacao TEXT DEFAULT CURRENT_TIMESTAMP,
       professor_nome TEXT,
       turma_id INTEGER,

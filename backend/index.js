@@ -10,8 +10,8 @@ const app = express();
 app.use(cors({ origin: ['http://localhost:5173', 'http://100.64.15.113:5173'] }));
 app.use(express.json());
 
-app.use('/acesso', alunoRoutes);
-app.use('/login', professorRoutes);
+app.use('/acessoaluno', alunoRoutes);
+app.use('/acessoprofessor', professorRoutes);
 app.use('/posts', postRoutes);
 
 app.listen(3001, '0.0.0.0', () => {

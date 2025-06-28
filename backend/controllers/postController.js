@@ -1,28 +1,25 @@
 const db = require('../database/db');
 
 exports.criarPost = (req, res) => {
-  const { titulo, conteudo, anexos, imagens, turma, professor_nome } = req.body;
+  const { titulo, conteudo, turma, professor_nome } = req.body;
 
 if (!titulo || !turma || !professor_nome) {
   return res.status(400).json({ message: 'Campos obrigatórios: título, turma e professor.' });
 }
 
-
-  const sql = `
-    INSERT INTO posts (titulo, conteudo, anexos, imagens, turma_id, professor_nome, data_criacao)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `;
-
+ const sql = `
+  INSERT INTO posts (titulo, conteudo, turma_id, professor_nome, data_criacao)
+  VALUES (?, ?, ?, ?, ?)
+`;
 
 const values = [
   titulo,
   conteudo || '',
-  anexos ? JSON.stringify(anexos) : null,
-  imagens ? JSON.stringify(imagens) : null,
   turma,
   professor_nome,
   new Date().toISOString()
 ];
+
 
  db.run(sql, values, function (err) {
     if (err) {

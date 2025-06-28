@@ -1,7 +1,7 @@
 const db = require("../database/db");
 const bcrypt = require("bcrypt");
 
-exports.loginProfessor = (req, res) => {
+exports.acessoProfessor = (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || !senha) {
