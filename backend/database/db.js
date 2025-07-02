@@ -22,6 +22,15 @@ const initDB = async () => {
       senha TEXT NOT NULL
     )`);
 
+    db.run(`CREATE TABLE IF NOT EXISTS estagiarios (
+
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      avatar TEXT,
+      nome TEXT NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      senha TEXT NOT NULL,
+      )`)
+
     db.run(`CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       avatar TEXT,
@@ -104,6 +113,17 @@ const initDB = async () => {
       avatar: "paulo_avatar.jpg",
       turmas: [5],
     },
+  ];
+
+  
+  const estagiarios = [
+    {
+      nome: "Juan André",
+      email: "juan@utec.com",
+      senha: "123456",
+      avatar: "",
+      turmas: [1, 3],
+    }
   ];
 
   for (const prof of professores) {
