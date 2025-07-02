@@ -8,7 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleAlunoClick = () => navigate("/acessoaluno");
-  const handleProfessorClick = () => navigate("/loginprofessor");
+  const handleProfessorClick = () => navigate("/acessoprofessor");
 
   const location = useLocation();
 

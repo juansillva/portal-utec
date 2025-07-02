@@ -9,8 +9,6 @@ $background-color: linear-gradient(
   #f0faff 46.15%
 );
 
-
-
 h1,
 h2,
 h3,
@@ -30,7 +28,7 @@ button {
   border: none;
   padding: 0.6rem;
   border-radius: 4px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -43,7 +41,7 @@ body,html {
   overflow-x: hidden;
   width: 100%;
   background: $background-color;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   position: relative;
 }
 

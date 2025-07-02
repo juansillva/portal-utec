@@ -11,7 +11,7 @@ exports.acessoAluno = (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Erro no servidor" });
     }
-
+    
     if (!turma) {
       return res.status(401).json({ message: "Turma não encontrada" });
     }
@@ -22,6 +22,7 @@ exports.acessoAluno = (req, res) => {
     nome,
     turma: turma.nome,
     turma_id: turma.id,
+     avatar: "aluno_padrao.svg"
   },
 });
 });

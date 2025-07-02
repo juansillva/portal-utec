@@ -2,7 +2,7 @@ import "../../../styles/institucional/home/_InfoClub.scss";
 
 import { useState } from "react";
 import CardClub from "./CardClub";
-import spiral from "../../../assets/spiral.svg";
+
 import { clubes } from "../../../utils/clubes";
 
 const Clubs = () => {
@@ -17,7 +17,6 @@ const Clubs = () => {
       <div className="title-section">
         <h1 id="title-club">CRONOGRAMA</h1>
         <p>Clubes de Programação e Robótica</p>
-        <img id="spiral" src={spiral} alt="" />
       </div>
       <div className="filters">
         <button

@@ -7,7 +7,17 @@ const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://100.64.15.113:5173'] }));
+const path = require("path");
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
+
+
 app.use(express.json());
 
 app.use('/acessoaluno', alunoRoutes);
@@ -15,9 +25,9 @@ app.use('/acessoprofessor', professorRoutes);
 app.use('/posts', postRoutes);
 
 app.listen(3001, '0.0.0.0', () => {
-  console.log('Servidor rodando na porta 3001');
-  console.log('Acesse http://localhost:3001/acesso para validar o acesso do aluno');
+  console.log('Servidor rodando em http://100.64.15.109:3001');
 });
+
 
 
 module.exports = app;

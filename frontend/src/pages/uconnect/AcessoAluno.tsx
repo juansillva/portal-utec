@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoUconnectWhite from "../../assets/logo-uconnect-white.svg";
 import { acessoAluno } from "../../services/acessoAluno";
-import "../../styles/uconnect/_AcessoAluno.scss";
+import styles from '../../styles/uconnect/AcessoAluno.module.scss'
 
 import { cursos } from "../../utils/cursos";
 
 const AcessoAluno = () => {
-  useEffect(() => {
-    document.body.classList.add("acesso-aluno");
-
-    return () => {
-      document.body.classList.remove("acesso-aluno");
-    };
-  }, []);
-
   const [nome, setNome] = useState("");
   const [turmaSelecionada, setTurmaSelecionada] = useState("");
   const [erro, setErro] = useState("");
@@ -26,7 +18,8 @@ const AcessoAluno = () => {
 
     try {
       const aluno = await acessoAluno(nome, turmaSelecionada);
-      navigate(`/uconnect/feed/${aluno.turma}`);
+      localStorage.setItem('aluno', JSON.stringify(aluno))
+      navigate(`/uconnect/feed/`);
     } catch (err) {
       console.error(err);
       setErro("Turma não encontrada. Tente novamente.");
@@ -34,12 +27,14 @@ const AcessoAluno = () => {
   };
 
   return (
-    <div className="container-acesso">
-      <img src={logoUconnectWhite} alt="Logo Uconnect" />
+    <div className={styles['container-acesso']}>
+      <div className={styles['acesso-header']}>
+    <img src={logoUconnectWhite} alt="Logo Uconnect" />
       <h2>Seja bem-vindo Aluno</h2>
       <p>Para continuar, informe seu nome e turma</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="form-acesso">
+      <form onSubmit={handleSubmit} className={styles['form-acesso']}>
         <h2>Acesso do Aluno</h2>
 
         <label>Nome</label>
@@ -65,7 +60,7 @@ const AcessoAluno = () => {
           ))}
         </select>
 
-        {erro && <p style={{ color: "red" }}>{erro}</p>}
+        {erro && <p className={styles.erro}>{erro}</p>}
 
         <button type="submit">Entrar</button>
       </form>

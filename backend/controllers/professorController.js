@@ -19,7 +19,7 @@ exports.acessoProfessor = (req, res) => {
       delete professor.senha;
 
       db.all(`
-        SELECT turmas.id, turmas.nome 
+        SELECT turmas.id, turmas.nome, turmas.icon 
         FROM turmas 
         JOIN professor_turma ON turmas.id = professor_turma.turma_id 
         WHERE professor_turma.professor_id = ?
