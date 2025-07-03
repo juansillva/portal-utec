@@ -1,4 +1,6 @@
 
+console.log("BACKEND INICIANDO")
+
 const express = require('express');
 const cors = require('cors');
 const alunoRoutes = require('./routes/alunoRoutes');

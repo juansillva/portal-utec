@@ -16,6 +16,7 @@ exports.acessoAluno = (req, res) => {
       return res.status(401).json({ message: "Turma não encontrada" });
     }
 
+
   return res.status(200).json({
   message: "Acesso autorizado",
   aluno: {

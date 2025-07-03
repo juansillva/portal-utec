@@ -23,6 +23,7 @@ exports.criarPost = (req, res) => {
 
   db.run(sql, values, function (err) {
     if (err) {
+      console.log('Erro ao criar o post')
       return res.status(500).json({ message: 'Erro ao criar post', error: err.message });
     }
 
