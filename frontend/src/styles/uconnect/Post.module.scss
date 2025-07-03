@@ -2,101 +2,186 @@
   display: flex;
   flex-direction: column;
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px 0 #0000000d;
-  padding: 32px 32px 60px 32px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  max-width: 560px;
-  font-family: 'Inter', Arial, sans-serif;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 16px 0;
+  max-width: 600px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
 }
 
 .post-header {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.post-user-info {
+  display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  gap: 0.6rem;
-  
+  gap: 12px;
+  flex: 1;
 }
 
 .post-avatar {
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
-
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border: 2px solid rgba(30, 198, 166, 0.1);
+  transition: border-color 0.2s ease;
+  
+  &:hover {
+    border-color: rgba(30, 198, 166, 0.3);
+  }
 }
 
+.post-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 .post-nome {
-  font-weight: 700;
-  font-size: 18px;
-  color: #222;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a1a1a;
+  line-height: 1.3;
 }
 
 .post-clube {
-  background: #1ec6a6;
+  background: #16a085;
   color: #fff;
-  font-size: 12px;
-  border-radius: 6px;
-  padding: 4px 14px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-weight: 500;
-  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(30, 198, 166, 0.2);
+  align-self: flex-start;
 }
 
 .post-meta {
-  color: #9e9e9e;
+  color: #666;
   font-size: 12px;
-  margin-top: 2px;
-  display: flex;
-  gap: 12px;
+  font-weight: 500;
+  
+  span {
+    opacity: 0.8;
+  }
 }
 
 .post-body {
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin: 4px 0 20px 0;
 }
 
-.post-body strong {
-  display: block;
-  font-size: 16px;
+.post-title {
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 8px;
-  color: #222;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+  line-height: 1.4;
 }
 
-.post-body p {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 0;
+.post-content {
+  font-size: 15px;
+  color: #444;
+  margin: 0;
   white-space: pre-line;
+  line-height: 1.6;
 }
 
 .post-actions {
   display: flex;
-  gap: 24px;
-  margin-top: 10px;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.post-actions button {
+.action-button {
   background: none;
-  border: none;
+  border: 1px solid rgba(26, 115, 232, 0.2);
   color: #1a73e8;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: color 0.2s;
-  padding: 0;
-
-  & svg{
-    width: 18px;
+  gap: 8px;
+  transition: all 0.2s ease;
+  padding: 10px 16px;
+  border-radius: 24px;
+  flex: 1;
+  justify-content: center;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  span {
+    font-family: inherit;
+  }
+  
+  &:hover {
+    background: rgba(26, 115, 232, 0.04);
+    border-color: rgba(26, 115, 232, 0.3);
+    color: #1558b0;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 }
 
-.post-actions button:hover {
-  color: #1558b0;
+// Responsividade
+@media (max-width: 640px) {
+  .post-card {
+    margin: 12px 0;
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+  
+  .post-header {
+    margin-bottom: 16px;
+  }
+  
+  .post-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .post-nome {
+    font-size: 15px;
+  }
+  
+  .post-title {
+    font-size: 16px;
+  }
+  
+  .post-content {
+    font-size: 14px;
+  }
+  
+  .action-button {
+    font-size: 12px;
+    padding: 8px 12px;
+    gap: 6px;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }

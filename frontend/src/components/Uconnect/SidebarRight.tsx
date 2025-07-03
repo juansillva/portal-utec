@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react"
+import {  SplinePointer } from "lucide-react"
 import logoScratch from '../../assets/scratch-logo.svg'
 import logoArduino from '../../assets/logo-arduino.svg'
 import logoKahoot from '../../assets/kahoot-white 1.svg'
@@ -13,10 +13,12 @@ const SidebarRight = () => {
  
   }
 
+
   return (
-    <div className={styles.sidebarRight}>
+    <>
+      <div className={styles.sidebarRight}>
       <div className={styles.quickAccessHeader}>
-        <Menu className={styles.menuIcon} />
+        <SplinePointer className={styles.menuIcon}/>
         <h3>Acesso Rápido</h3>
       </div>
 
@@ -113,6 +115,8 @@ const SidebarRight = () => {
         </div>
       </div>
     </div>
+    
+    </>
   )
 }
 

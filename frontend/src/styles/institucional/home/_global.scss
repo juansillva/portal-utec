@@ -37,12 +37,11 @@ button {
 }
 
 body,html {
-  margin: 0;
+  margin: 0 auto;
   overflow-x: hidden;
   width: 100%;
-  background: $background-color;
+  height: 100vh;
   font-family: "Inter", sans-serif;
-  position: relative;
 }
 
 main {

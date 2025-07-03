@@ -6,12 +6,14 @@ import backgroundProfile from '../../assets/background-profile.svg'
 import { Camera, ChartNoAxesGanttIcon, FileText, Shapes } from 'lucide-react';
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { Menu } from 'lucide-react';
 
 const SidebarLeft = () => {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [nome, setNome] = useState('');
   const [role, setRole] = useState<'professor' | 'aluno' | null>(null);
   const [turmas, setTurmas] = useState<{ id: number, nome: string, icon: string }[]>([]);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     // Primeiro, tenta carregar dados de professor
@@ -45,7 +47,15 @@ const SidebarLeft = () => {
   }, []);
 
   return (
-    <aside className={styles.sidebar}>
+    <>
+    <button
+  className={styles.menuButton}
+  onClick={() => setIsMobileOpen(!isMobileOpen)}
+>
+  <Menu />
+</button>
+
+       <aside className={`${styles.sidebar} ${isMobileOpen ? styles.show : styles.hide}`}>
       <img className={styles.logoUconnect} src={logoUconnect} alt='logo Uconnect' />
       
       <div className={styles['container-profile']}>
@@ -57,8 +67,10 @@ const SidebarLeft = () => {
             alt={`Avatar do ${role}`}
           />
         )}
+        <div className={styles['profile-info']}>
         <p>{nome}</p>
         <span>{role === 'professor' ? 'Professor' : 'Aluno'}</span>
+        </div>
       </div>
 
       <nav>
@@ -134,6 +146,8 @@ const SidebarLeft = () => {
         </div>
       )}
     </aside>
+    </>
+   
   )
 }
 

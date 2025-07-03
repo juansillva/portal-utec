@@ -43,7 +43,6 @@
   .menuIcon {
     width: 18px;
     height: 18px;
-    color: #6b7280;
   }
 }
 
@@ -121,15 +120,15 @@
   }
 
   &.gemini {
-    background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+    background: #f3f4f6;
   }
 
   &.padlet {
-    background-color: #ff69b4;
+    background-color: #ffffff;
   }
 
   &.kahoot {
-    background-color: #662d91;
+    background-color: #e7c7ff;
   }
 }
 
@@ -156,6 +155,49 @@
   }
 }
 
+.menuButton {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1f2937;
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 960px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 280px;
+    z-index: 998;
+    transition: left 0.3s ease-in-out;
+  }
+
+  .show {
+    left: 0;
+  }
+
+  .hide {
+    left: -100%;
+  }
+
+  .menuButton {
+    display: block;
+
+  }
+}
+
+
 // Responsive design
 @media (max-width: 1200px) {
   .sidebarRight {
@@ -169,7 +211,7 @@
   }
 }
 
-// Estados de loading/hover para interatividade
+
 .toolItem {
   position: relative;
   
