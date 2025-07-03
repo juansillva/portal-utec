@@ -27,7 +27,7 @@ app.use('/acessoprofessor', professorRoutes);
 app.use('/posts', postRoutes);
 
 app.listen(3001, '0.0.0.0', () => {
-  console.log('Servidor http://100.64.15.106:3001');
+  console.log('Servidor http://100.64.15.120:3001');
 });
 
 
