@@ -4,7 +4,7 @@ import Sidebar from "../../components/uconnect/SidebarLeft";
 import styles from '../../styles/uconnect/CriarPost.module.scss';
 import { criarPost } from "../../services/criarPost";
 import { useNavigate } from "react-router-dom";
-import SidebarRight from "../../components/uconnect/SidebarRight";
+
 
 const CriarPost = () => {
   const [titulo, setTitulo] = useState("");

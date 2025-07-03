@@ -12,8 +12,6 @@ const SidebarRight = () => {
     console.log(`Acessando ${toolName}`)
  
   }
-
-
   return (
     <>
       <div className={styles.sidebarRight}>
