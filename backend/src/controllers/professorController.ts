@@ -1,7 +1,8 @@
-const db = require("../database/db");
-const bcrypt = require("bcrypt");
+import { Request, Response } from 'express';
+import db from '../database/db'
+import bcrypt from 'bcrypt';
 
-exports.acessoProfessor = (req, res) => {
+export const acessoProfessor = (req: Request, res: Response) => {
   const { email, senha } = req.body;
   console.log(`[acessoProfessor] Tentativa de login:`, { email });
 

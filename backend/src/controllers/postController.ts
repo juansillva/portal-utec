@@ -1,6 +1,7 @@
-const db = require('../database/db');
+import { Request, Response } from 'express';
+import db from '../database/db'
 
-exports.criarPost = (req, res) => {
+export const criarPost = (req: Request, res: Response) => {
   const { titulo, conteudo, turma, professor_nome, avatar } = req.body;
 
   if (!titulo || !turma || !professor_nome) {
@@ -42,7 +43,7 @@ exports.criarPost = (req, res) => {
 };
 
 
-exports.listarPosts = (req, res) => {
+export const listarPosts = (req: Request, res: Response) => {
   db.all(
     `SELECT posts.*, turmas.nome as turma_nome
      FROM posts

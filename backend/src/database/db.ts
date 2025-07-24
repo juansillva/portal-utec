@@ -1,6 +1,6 @@
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
-const bcrypt = require("bcrypt");
+import sqlite3 from 'sqlite3';
+import path from 'path'
+import bcrypt from 'bcrypt'
 
 const db = new sqlite3.Database(path.resolve(__dirname, "uconnect.db"));
 
@@ -134,4 +134,4 @@ const initDB = async () => {
 
 initDB();
 
-module.exports = db;
+export default db;
