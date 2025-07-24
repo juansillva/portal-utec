@@ -3,7 +3,7 @@ import HeaderUconnect from './HeaderUconnect';
 import Sidebar from './SidebarLeft';
 import SidebarRight from './SidebarRight';
 import Post from './Post';
-import { getPosts } from '../../services/buscarPosts';
+import { buscarPosts } from '../../services/buscarPosts';
 
 import styles from '../../styles/uconnect/Feed.module.scss';
 
@@ -24,7 +24,7 @@ const Feed = () => {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const data = await getPosts();
+        const data = await buscarPosts();
         setPosts(Array.isArray(data) ? data : []);
       } catch {
         setPosts([]);

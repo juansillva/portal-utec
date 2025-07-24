@@ -1,6 +1,6 @@
 import api from './api';
 
-export async function getPosts() {
+export async function buscarPosts() {
   const response = await api.get('/posts');
 
   if (Array.isArray(response.data)) {
