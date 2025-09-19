@@ -3,19 +3,10 @@ import HeaderUconnect from './HeaderUconnect';
 import Sidebar from './SidebarLeft';
 import SidebarRight from './SidebarRight';
 import Post from './Post';
-import { buscarPosts } from '../../services/buscarPosts';
+import { getPosts } from '../../services/buscarPosts';
+import { Post as PostType } from '../../types/typePost'; // Ajuste o caminho conforme sua estrutura
 
 import styles from '../../styles/uconnect/Feed.module.scss';
-
-type PostType = {
-  id: number;
-  avatar?: string;
-  professor_nome: string;
-  titulo: string;
-  conteudo: string;
-  data_criacao: string;
-  turma_nome?: string;
-};
 
 const Feed = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -24,9 +15,12 @@ const Feed = () => {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const data = await buscarPosts();
+        console.log('Iniciando busca de posts...');
+        const data = await getPosts();
+        console.log('Posts recebidos no Feed:', data);
         setPosts(Array.isArray(data) ? data : []);
-      } catch {
+      } catch (error) {
+        console.error('Erro ao buscar posts no Feed:', error);
         setPosts([]);
       } finally {
         setLoading(false);
@@ -34,6 +28,15 @@ const Feed = () => {
     }
     fetchPosts();
   }, []);
+
+  // Debug: mostrar os posts no console sempre que mudarem
+  useEffect(() => {
+    console.log('Estado dos posts atualizou:', posts);
+    if (posts.length > 0) {
+      console.log('Primeiro post no estado:', posts[0]);
+      console.log('turma_nome do primeiro post:', posts[0].turma_nome);
+    }
+  }, [posts]);
 
   return (
     <div className={styles.feed}>
@@ -53,7 +56,7 @@ const Feed = () => {
               professor_nome={post.professor_nome}
               titulo={post.titulo}
               conteudo={post.conteudo}
-              data_criacao={post.data_criacao}
+              data_criacao={post.data_criacao.toISOString()} // Converter Date para string
               turma_nome={post.turma_nome}
             />
           ))}

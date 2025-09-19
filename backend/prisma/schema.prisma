@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // ou "sqlite" se quiser continuar com SQLite
+  url      = env("DATABASE_URL")
+}
+
+model Professor {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  email   String   @unique
+  senha   String
+  avatar  String?
+  posts   Post[]
+  turmas  ProfessorTurma[]
+}
+
+model Turma {
+  id          Int      @id @default(autoincrement())
+  nome        String   @unique
+  icon        String?
+  posts       Post[]
+  professores ProfessorTurma[]
+}
+
+model ProfessorTurma {
+  professor   Professor @relation(fields: [professor_id], references: [id])
+  professor_id Int
+  turma       Turma     @relation(fields: [turma_id], references: [id])
+  turma_id    Int
+
+  @@id([professor_id, turma_id])
+}
+
+model Post {
+  id           Int       @id @default(autoincrement())
+  titulo       String
+  conteudo     String?
+  data_criacao DateTime  @default(now())
+  professor    Professor @relation(fields: [professor_id], references: [id])
+  professor_id Int
+  turma        Turma     @relation(fields: [turma_id], references: [id])
+  turma_id     Int
+}

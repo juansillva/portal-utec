@@ -23,7 +23,7 @@ const Post = ({
       <div className={styles['post-user-info']}>
         {avatar && (
           <img
-            src={`${import.meta.env.VITE_API_URL}/uploads/${avatar}`}
+            src={avatar} // ✅ CORREÇÃO: Usar diretamente, pois já vem URL completa do backend
             alt="Avatar do professor"
             className={styles['post-avatar']}
           />
