@@ -40,3 +40,108 @@
 .sidebar-right {
   grid-column: 3;
 }
+
+/* Adicione estes estilos ao seu Feed.module.scss */
+
+.pagination-info {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
+
+  .pagination-btn {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+
+    &:hover:not(.disabled) {
+      background-color: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    &.disabled {
+      background-color: #f8f9fa;
+      color: #6c757d;
+      cursor: not-allowed;
+      border-color: #dee2e6;
+    }
+  }
+
+  .pagination-numbers {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
+    .pagination-number {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      color: #007bff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      min-width: 40px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #e9ecef;
+      }
+
+      &.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+      }
+    }
+
+    .dots {
+      color: #6c757d;
+      padding: 0.5rem 0.25rem;
+      font-weight: bold;
+    }
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    .pagination-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .pagination-numbers {
+      .pagination-number {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        min-width: 35px;
+      }
+    }
+  }
+
+  .pagination-info {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // ou "sqlite" se quiser continuar com SQLite
+  provider = "postgresql" 
   url      = env("DATABASE_URL")
 }
 
@@ -21,7 +21,7 @@ model Turma {
   id          Int      @id @default(autoincrement())
   nome        String   @unique
   icon        String?
-  posts       Post[]
+  posts       Post[] 
   professores ProfessorTurma[]
 }
 
@@ -33,14 +33,25 @@ model ProfessorTurma {
 
   @@id([professor_id, turma_id])
 }
-
 model Post {
-  id           Int       @id @default(autoincrement())
-  titulo       String
-  conteudo     String?
-  data_criacao DateTime  @default(now())
-  professor    Professor @relation(fields: [professor_id], references: [id])
-  professor_id Int
-  turma        Turma     @relation(fields: [turma_id], references: [id])
-  turma_id     Int
+  id               Int           @id @default(autoincrement())
+  titulo           String
+  conteudo         String        // Obrigatório
+  data_criacao     DateTime      @default(now())
+  data_atualizacao DateTime?     @updatedAt
+  professor        Professor     @relation(fields: [professor_id], references: [id])
+  professor_id     Int
+  turma            Turma         @relation(fields: [turma_id], references: [id])
+  turma_id         Int
+  arquivos         PostArquivo[]
+}
+
+model PostArquivo {
+  id       Int    @id @default(autoincrement())
+  nome     String
+  url      String
+  tipo     String
+  tamanho  Int?
+  post     Post   @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id  Int
 }

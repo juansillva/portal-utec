@@ -8,10 +8,6 @@ import logoGPT from '../../assets/logo-gpt.svg'
 import styles from '../../styles/uconnect/SidebarRight.module.scss'
 
 const SidebarRight = () => {
-  const handleToolClick = (toolName: string) => {
-    console.log(`Acessando ${toolName}`)
- 
-  }
   return (
     <>
       <div className={styles.sidebarRight}>
@@ -25,10 +21,9 @@ const SidebarRight = () => {
         <div className={styles.toolsList}>
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('Scratch')}
           >
             <div className={`${styles.toolIcon} ${styles.scratch}`}>
-              <img src={logoScratch} alt="Scratch" />
+              <a href="https://scratch.mit.edu/"><img src={logoScratch} alt="Scratch"/></a>
             </div>
             <div className={styles.toolInfo}>
               <h4>Scratch</h4>
@@ -38,10 +33,9 @@ const SidebarRight = () => {
 
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('Arduino')}
           >
             <div className={`${styles.toolIcon} ${styles.arduino}`}>
-              <img src={logoArduino} alt="Arduino" />
+              <a href="https://www.arduino.cc/"><img src={logoArduino} alt="Arduino" /></a>
             </div>
             <div className={styles.toolInfo}>
               <h4>Arduino</h4>
@@ -56,10 +50,9 @@ const SidebarRight = () => {
         <div className={styles.toolsList}>
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('ChatGPT')}
           >
             <div className={`${styles.toolIcon} ${styles.chatgpt}`}>
-             <img src={logoGPT} alt="CHATGPT" />
+             <a href="https://chatgpt.com/"></a><img src={logoGPT} alt="CHATGPT" />
             </div>
             <div className={styles.toolInfo}>
               <h4>ChatGPT</h4>
@@ -69,10 +62,9 @@ const SidebarRight = () => {
 
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('Gemini')}
           >
             <div className={`${styles.toolIcon} ${styles.gemini}`}>
-             <img src={logoGemini} alt="Gemini" />
+             <a href="https://gemini.google.com/app?hl=pt-BR"><img src={logoGemini} alt="Gemini" /></a>
             </div>
             <div className={styles.toolInfo}>
               <h4>Gemini</h4>
@@ -82,10 +74,9 @@ const SidebarRight = () => {
 
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('Padlet')}
           >
             <div className={`${styles.toolIcon} ${styles.padlet}`}>
-             <img src={logoPadlet} alt="Padlet" />
+             <a href="https://padlet.com/"><img src={logoPadlet} alt="Padlet" /></a>
             </div>
             <div className={styles.toolInfo}>
               <h4>Padlet</h4>
@@ -100,10 +91,9 @@ const SidebarRight = () => {
         <div className={styles.toolsList}>
           <div 
             className={styles.toolItem}
-            onClick={() => handleToolClick('Kahoot')}
           >
             <div className={`${styles.toolIcon} ${styles.kahoot}`}>
-              <img src={logoKahoot} alt="Kahoot" />
+             <a href="https://kahoot.com/"><img src={logoKahoot} alt="Kahoot" /></a> 
             </div>
             <div className={styles.toolInfo}>
               <h4>Kahoot!</h4>
@@ -118,4 +108,4 @@ const SidebarRight = () => {
   )
 }
 
-export default SidebarRight
+export default SidebarRight;

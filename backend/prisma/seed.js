@@ -4,11 +4,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   const turmas = [
-    { id: 1, nome: "IA, Fake News e Redes Sociais", icon: "iconIAMini.svg" },
-    { id: 2, nome: "Transformando Lixo em Vida", icon: "iconRecycleMini.svg" },
-    { id: 3, nome: "SustentaTech - AF", icon: "iconGloboMini.svg" },
-    { id: 4, nome: "SustentaTech - AI", icon: "iconGloboMini.svg" },
-    { id: 5, nome: "EcoBots", icon: "iconEcoBotsMini.svg" },
+    { id: 1, nome: "T13 - Criatividade na Ponta da Caneta", icon: "iconGloboMini.svg" },
+    { id: 2, nome: "T14 - Conexões Sustentáveis ", icon: "iconGloboMini.svg" },
+    { id: 3, nome: "T12 - Transforma Info", icon: "iconEcoBotsMini.svg" },
+    { id: 4, nome: "T11 - Transforma Info", icon: "iconEcoBotsMini.svg" },
   ];
 
   for (const t of turmas) {

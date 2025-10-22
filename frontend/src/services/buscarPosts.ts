@@ -21,6 +21,17 @@ interface PostBackend {
   } | null;
 }
 
+
+export type PostProps = {
+  id?: string;
+  avatar?: string | null; 
+  professor_nome: string;
+  titulo: string;
+  conteudo: string;
+  data_criacao: string;
+  turma_nome?: string;
+};
+
 export async function getPosts(): Promise<Post[]> {
   try {
     const response = await api.get(`/posts?_t=${Date.now()}`);

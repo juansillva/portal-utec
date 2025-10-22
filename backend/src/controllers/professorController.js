@@ -1,4 +1,4 @@
-const prisma = require("../prisma/prismaClient");
+const prisma = require("../../prisma/prismaClient");
 const bcrypt = require("bcrypt");
 
 exports.acessoProfessor = async (req, res) => {
@@ -11,7 +11,8 @@ exports.acessoProfessor = async (req, res) => {
   try {
     const professor = await prisma.professor.findUnique({ where: { email } });
 
-    if (!professor) return res.status(401).json({ message: "Professor não encontrado" });
+    if (!professor)
+      return res.status(401).json({ message: "Professor não encontrado" });
 
     const igual = await bcrypt.compare(senha, professor.senha);
     if (!igual) return res.status(401).json({ message: "Senha incorreta" });
@@ -22,7 +23,7 @@ exports.acessoProfessor = async (req, res) => {
       include: { turma: true },
     });
 
-    const turmasFormatadas = turmas.map(pt => pt.turma);
+    const turmasFormatadas = turmas.map((pt) => pt.turma);
 
     const { senha: _, ...professorSemSenha } = professor;
 

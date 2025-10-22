@@ -4,14 +4,14 @@ const express = require('express');
 const cors = require('cors');
 const path = require("path");
 
-const alunoRoutes = require('./routes/alunoRoutes');
-const professorRoutes = require('./routes/professorRoutes');
-const postRoutes = require('./routes/postRoutes');
+const alunoRoutes = require('./src/routes/alunoRoutes');
+const professorRoutes = require('./src/routes/professorRoutes');
+const postRoutes = require('./src/routes/postRoutes');
 
 const app = express();
 
 // Servir uploads como estático
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "./src/uploads")));
 
 // Configuração do CORS
 app.use(cors({
@@ -30,7 +30,7 @@ app.use('/posts', postRoutes);
 
 // Start server
 app.listen(3001, '0.0.0.0', () => {
-  console.log('Servidor rodando em http://192.168.1.111:3001');
+  console.log('Servidor rodando em http://:3001');
 });
 
 module.exports = app;

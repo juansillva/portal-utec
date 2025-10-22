@@ -1,5 +1,5 @@
 .header {
-    margin: 0;
+    margin: 8 auto;
     width: 100%;
     padding-bottom: 0.8rem;
     align-self: center;
@@ -72,42 +72,7 @@
     flex-shrink: 0; /* Não permite encolher */
 }
 
-/* Responsividade */
-@media (max-width: 1024px) {
-    .content-header-uconnect {
-        gap: 1rem;
-        padding: 0 1rem;
-    }
-    
-    .button-criar-post {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-    }
-}
 
-@media (max-width: 768px) {
-    .header {
-        padding: 12px 16px;
-    }
-    
-    .content-header-uconnect {
-        gap: 0.5rem;
-    }
-    
-    .button-criar-post {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-    }
-    
-    .box-profile img {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .user-actions {
-        gap: 0.5rem;
-    }
-}
 
 @media (max-width: 480px) {
     .button-criar-post {

@@ -4,9 +4,9 @@ import styles from '../../styles/uconnect/HeaderUconnect.module.scss';
 import SearchInput from './SearchInput';
 import { useState, useEffect } from 'react';
 
-import Notification from './Notification';
 
 const HeaderUconnect = () => {
+  
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [role, setRole] = useState<'professor' | 'aluno' | null>(null);
@@ -53,7 +53,6 @@ const HeaderUconnect = () => {
               Criar Post
             </button>
           )}
-          <Notification />
 
           <div className={styles['box-profile']}>
             <img

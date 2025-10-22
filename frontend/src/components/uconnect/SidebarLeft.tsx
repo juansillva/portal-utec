@@ -4,9 +4,10 @@ import logoUconnect from '../../assets/logo-uconnect.svg'
 import backgroundProfile from '../../assets/background-profile.svg'
 
 import { Camera, ChartNoAxesGanttIcon, FileText, Shapes } from 'lucide-react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
+
 
 const SidebarLeft = () => {
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -14,6 +15,8 @@ const SidebarLeft = () => {
   const [role, setRole] = useState<'professor' | 'aluno' | null>(null);
   const [turmas, setTurmas] = useState<{ id: number, nome: string, icon: string }[]>([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Primeiro, tenta carregar dados de professor
@@ -56,7 +59,13 @@ const SidebarLeft = () => {
 </button>
 
        <aside className={`${styles.sidebar} ${isMobileOpen ? styles.show : styles.hide}`}>
-      <img className={styles.logoUconnect} src={logoUconnect} alt='logo Uconnect' />
+     <img
+        className={styles.logoUconnect}
+        src={logoUconnect}
+        alt="logo Uconnect"
+        onClick={() => navigate('/')}
+        style={{ cursor: 'pointer' }} // opcional, só pra indicar que é clicável
+      />
       
       <div className={styles['container-profile']}>
         <img className={styles.backgroundProfile} src={backgroundProfile} alt="Background" />

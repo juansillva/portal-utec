@@ -1,4 +1,4 @@
-const prisma = require("../prisma/prismaClient");
+const prisma = require("../../prisma/prismaClient");
 
 exports.acessoAluno = async (req, res) => {
   const { nome, turma } = req.body;
@@ -9,7 +9,7 @@ exports.acessoAluno = async (req, res) => {
 
   try {
     const turmaEncontrada = await prisma.turma.findUnique({
-      where: { nome },
+      where: { nome: turma }, 
     });
 
     if (!turmaEncontrada) {

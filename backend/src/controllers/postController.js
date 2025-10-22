@@ -1,4 +1,4 @@
-const prisma = require("../prisma/prismaClient");
+const prisma = require("../../prisma/prismaClient");
 
 exports.criarPost = async (req, res) => {
   const { titulo, conteudo, turma_id, professor_email } = req.body;
@@ -35,7 +35,6 @@ exports.criarPost = async (req, res) => {
       }
     });
 
-    // CORREÇÃO: Gerar URL completa APENAS se avatar existe e não é uma URL completa
     const baseUrl = `${req.protocol}://${req.get('host')}`;
     const postJson = {
       ...post,
@@ -55,6 +54,29 @@ exports.criarPost = async (req, res) => {
     res.status(500).json({ message: 'Erro ao criar post', error: err.message });
   }
 };
+
+exports.excluirPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: Number(id) }
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post não encontrado' });
+    }
+
+    await prisma.post.delete({
+      where: { id: Number(id) }
+    });
+
+    res.json({ message: 'Post excluído com sucesso' });
+  } catch (err) {
+    console.error('Erro ao excluir post:', err);
+    res.status(500).json({ message: 'Erro ao excluir post', error: err.message });
+  }
+}
 
 exports.listarPosts = async (req, res) => {
   try {

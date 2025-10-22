@@ -4,6 +4,7 @@ import Sidebar from "../../components/uconnect/SidebarLeft";
 import styles from '../../styles/uconnect/CriarPost.module.scss';
 import { criarPost } from "../../services/criarPost";
 import { useNavigate } from "react-router-dom";
+import SidebarRight from "../../components/uconnect/SidebarRight";
 
 
 const CriarPost = () => {
@@ -46,6 +47,7 @@ const CriarPost = () => {
   };
 
   return (
+
     <div className={styles['create-post']}>
       <Sidebar />
       <div className={styles['main-content-create-post']}>
@@ -96,6 +98,7 @@ const CriarPost = () => {
         </form>
           </div>
     </div>
+      <SidebarRight />
       </div>
        
   );
