@@ -50,6 +50,7 @@ export async function getPosts(): Promise<Post[]> {
         id: post.id,
         avatar: post.professor?.avatarUrl || null,
         professor_nome: post.professor?.nome || 'Professor não identificado',
+        professor_id: post.professor?.id || 0,
         titulo: post.titulo,
         conteudo: post.conteudo,
         data_criacao: new Date(post.data_criacao),

@@ -115,9 +115,10 @@ const Feed = () => {
               key={post.id}
               avatar={post.avatar}
               professor_nome={post.professor_nome}
+              professor_id={post.professor_id}
               titulo={post.titulo}
               conteudo={post.conteudo}
-              data_criacao={post.data_criacao.toISOString()}
+              data_criacao={post.data_criacao}
               turma_nome={post.turma_nome}
             />
           ))}

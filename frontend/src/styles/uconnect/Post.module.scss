@@ -206,3 +206,106 @@
     }
   }
 }
+
+/* Adicione estes estilos ao seu Post.module.scss */
+
+.post-header {
+  /* Seus estilos existentes */
+  
+  .post-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.post-menu {
+  position: relative;
+
+  .menu-trigger {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    color: #6c757d;
+
+    &:hover {
+      background-color: #f1f3f4;
+    }
+
+    &:active {
+      background-color: #e9ecef;
+    }
+  }
+
+  .dropdown-modal {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 160px;
+    z-index: 1000;
+    overflow: hidden;
+    animation: fadeIn 0.15s ease-out;
+
+    .dropdown-item {
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #333;
+      transition: background-color 0.2s ease;
+      text-align: left;
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      &:active {
+        background-color: #e9ecef;
+      }
+
+      svg {
+        flex-shrink: 0;
+      }
+
+      &.delete {
+        color: #dc3545;
+
+        &:hover {
+          background-color: #fff5f5;
+        }
+      }
+    }
+
+    /* Separador entre itens (opcional) */
+    .dropdown-item:not(:last-child) {
+      border-bottom: 1px solid #f1f3f4;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

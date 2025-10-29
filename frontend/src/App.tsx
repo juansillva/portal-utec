@@ -8,6 +8,8 @@ import AcessoAluno from './pages/uconnect/AcessoAluno';
 import AcessoProfessor from './pages/uconnect/AcessoProfessor';
 import Feed from './components/uconnect/Feed';
 import CriarPost from './pages/uconnect/CriarPost';
+import EditPost from './components/uconnect/EditPost';
+
 
 export default function App() {
   return (
@@ -19,6 +21,7 @@ export default function App() {
       <Route path="/acessoprofessor" element={<AcessoProfessor />} />
       <Route path="/uconnect/feed" element={<Feed />} />
       <Route path="/uconnect/criarpost" element={<CriarPost />} />
+      <Route path="/uconnect/editpost/:id" element={<EditPost />} />
     </Routes>
   );
 }
