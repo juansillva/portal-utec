@@ -8,7 +8,7 @@ exports.criarPost = async (req, res) => {
   }
 
   try {
-    // Buscar o professor pelo email
+
     const professor = await prisma.professor.findUnique({
       where: { email: professor_email }
     });
@@ -17,7 +17,6 @@ exports.criarPost = async (req, res) => {
       return res.status(404).json({ message: 'Professor não encontrado' });
     }
 
-    // Criar o post conectando ao professor e à turma
     const post = await prisma.post.create({
       data: {
         titulo,
@@ -56,7 +55,7 @@ exports.criarPost = async (req, res) => {
 };
 
 exports.excluirPost = async (req, res) => {
-  const { id } = req.params;
+  const { id, idUser } = req.params;
 
   try {
     const post = await prisma.post.findUnique({
@@ -106,7 +105,7 @@ exports.listarPosts = async (req, res) => {
         ...post,
         professor: prof ? {
           ...prof,
-          // CORREÇÃO: Só adicionar baseUrl se o avatar não for uma URL completa
+          
           avatarUrl: prof.avatar && !prof.avatar.startsWith('http')
             ? `${baseUrl}/uploads/${prof.avatar}`
             : prof.avatar
@@ -119,5 +118,90 @@ exports.listarPosts = async (req, res) => {
   } catch (err) {
     console.error('Erro ao listar posts:', err);
     res.status(500).json({ message: 'Erro ao buscar posts', error: err.message });
+  }
+};
+
+exports.listarPostsPorID = async (req, res) => {
+  const { id } = req.params; 
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: { 
+        id: Number(id) 
+      },
+      include: {
+        professor: {
+          select: {
+            id: true,       
+            nome: true,
+            avatar: true,
+          }
+        },
+        turma: {
+          select: {
+            id: true,
+            nome: true,
+          }
+        }
+      }
+    });
+
+    if (!post) {
+      return res.status(404).json({ 
+        message: "Post não encontrado" 
+      });
+    }
+
+    return res.status(200).json({
+      id: post.id,
+      titulo: post.titulo,
+      conteudo: post.conteudo,
+      professor_id: post.professor_id, 
+      professor_nome: post.professor.nome,
+      avatar: post.professor.avatar,
+      turma_id: post.turma_id,
+      turma_nome: post.turma.nome,
+      data_criacao: post.data_criacao,
+    });
+
+  } catch (error) {
+    console.error("Erro ao buscar post:", error);
+    return res.status(500).json({ 
+      message: "Erro ao buscar post" 
+    });
+  }
+};
+
+exports.atualizarPost = async (req, res) => {
+  const { id } = req.params;
+  const { titulo, conteudo, turma_id } = req.body;
+
+  if (!titulo || !conteudo || !turma_id) {
+    return res.status(400).json({
+      message: 'Campos obrigatórios: título, conteúdo e turma.'
+    });
+  }
+
+  try {
+    const postAtualizado = await prisma.post.update({
+      where: { id: Number(id) },
+      data: {
+        titulo,
+        conteudo,
+        turma_id: Number(turma_id),
+      },
+    });
+
+    return res.status(200).json({
+      message: 'Post atualizado com sucesso!',
+      post: postAtualizado
+    });
+
+  } catch (error) {
+    console.error("Erro ao atualizar post:", error);
+    return res.status(500).json({
+      message: "Erro ao atualizar post",
+      error: error.message
+    });
   }
 };
