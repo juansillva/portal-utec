@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { SearchProvider } from './contexts/SearchContext';
 
 import Home from './pages/institucional/Home';
 import About from './pages/institucional/About';
@@ -10,18 +11,19 @@ import Feed from './components/uconnect/Feed';
 import CriarPost from './pages/uconnect/CriarPost';
 import EditPost from './components/uconnect/EditPost';
 
-
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/sobre" element={<About />} />
-      <Route path="/cursos" element={<Curses />} />
-      <Route path="/acessoaluno" element={<AcessoAluno />} />
-      <Route path="/acessoprofessor" element={<AcessoProfessor />} />
-      <Route path="/uconnect/feed" element={<Feed />} />
-      <Route path="/uconnect/criarpost" element={<CriarPost />} />
-      <Route path="/uconnect/editpost/:id" element={<EditPost />} />
-    </Routes>
+    <SearchProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sobre" element={<About />} />
+        <Route path="/cursos" element={<Curses />} />
+        <Route path="/acessoaluno" element={<AcessoAluno />} />
+        <Route path="/acessoprofessor" element={<AcessoProfessor />} />
+        <Route path="/uconnect/feed" element={<Feed />} />
+        <Route path="/uconnect/criarpost" element={<CriarPost />} />
+        <Route path="/uconnect/editpost/:id" element={<EditPost />} />
+      </Routes>
+    </SearchProvider>
   );
 }

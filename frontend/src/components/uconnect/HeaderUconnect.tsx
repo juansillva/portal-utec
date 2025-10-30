@@ -1,18 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/uconnect/HeaderUconnect.module.scss';
-
 import SearchInput from './SearchInput';
 import { useState, useEffect } from 'react';
-
+import { useSearch } from '../../contexts/SearchContext';
 
 const HeaderUconnect = () => {
-  
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [role, setRole] = useState<'professor' | 'aluno' | null>(null);
+  const { setSearch, turmas } = useSearch();
 
   useEffect(() => {
-    // Primeiro tenta carregar dados de professor
     const storedProfessor = localStorage.getItem("professor");
     if (storedProfessor) {
       try {
@@ -25,7 +23,6 @@ const HeaderUconnect = () => {
       }
     }
 
-    // Se não tiver professor, tenta aluno
     const storedAluno = localStorage.getItem("aluno");
     if (storedAluno) {
       try {
@@ -41,10 +38,11 @@ const HeaderUconnect = () => {
   return (
     <header className={styles.header}>
       <div className={styles['content-header-uconnect']}>
-        <SearchInput />
+        <div className={styles['search-wrapper']}>
+          <SearchInput onSearch={setSearch} turmas={turmas} />
+        </div>
 
         <div className={styles['user-actions']}>
-          {/* Só professor pode criar post */}
           {role === 'professor' && (
             <button
               onClick={() => navigate('/uconnect/criarpost')}

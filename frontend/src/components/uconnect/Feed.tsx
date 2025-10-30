@@ -1,60 +1,103 @@
 'use server'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import HeaderUconnect from './HeaderUconnect';
 import Sidebar from './SidebarLeft';
 import SidebarRight from './SidebarRight';
 import Post from './Post';
 import { getPosts } from '../../services/buscarPosts';
 import { Post as PostType } from '../../types/typePost';
+import { useSearch } from '../../contexts/SearchContext';
 import styles from '../../styles/uconnect/Feed.module.scss';
 
 const Feed = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
+  const { searchTerm, filtros, setTurmas } = useSearch();
+  const [allPosts, setAllPosts] = useState<PostType[]>([]);
   const [loading, setLoading] = useState(true);
   
-  // Estados da paginação
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10); // Quantos posts por página
+  const [postsPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
         console.log('Iniciando busca de posts...');
         const data = await getPosts();
-        console.log('Posts recebidos no Feed:', data);
-        setPosts(Array.isArray(data) ? data : []);
+        const postsArray = Array.isArray(data) ? data : [];
+        setAllPosts(postsArray);
+        
+        // Extrair turmas únicas
+        const turmasUnicas = Array.from(
+          new Set(postsArray.map(p => p.turma_nome).filter(Boolean))
+        ).map((nome, index) => ({ id: index + 1, nome: nome || '' }));
+        setTurmas(turmasUnicas);
       } catch (error) {
         console.error('Erro ao buscar posts no Feed:', error);
-        setPosts([]);
+        setAllPosts([]);
       } finally {
         setLoading(false);
       }
     }
     fetchPosts();
-  }, []);
+  }, [setTurmas]);
 
-  // Cálculos da paginação
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const filteredPosts = useMemo(() => {
+    let resultados = [...allPosts];
+
+    if (searchTerm.trim()) {
+      const termoLower = searchTerm.toLowerCase();
+      resultados = resultados.filter(post =>
+        post.titulo.toLowerCase().includes(termoLower) ||
+        post.conteudo.toLowerCase().includes(termoLower) ||
+        post.professor_nome.toLowerCase().includes(termoLower)
+      );
+    }
+
+    if (filtros?.dataInicio) {
+      const dataInicio = new Date(filtros.dataInicio);
+      resultados = resultados.filter(post => 
+        new Date(post.data_criacao) >= dataInicio
+      );
+    }
+
+    if (filtros?.dataFim) {
+      const dataFim = new Date(filtros.dataFim);
+      dataFim.setHours(23, 59, 59, 999);
+      resultados = resultados.filter(post => 
+        new Date(post.data_criacao) <= dataFim
+      );
+    }
+
+    if (filtros?.turma) {
+      resultados = resultados.filter(post => 
+        post.turma_nome === filtros.turma
+      );
+    }
+
+    return resultados;
+  }, [searchTerm, filtros, allPosts]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filtros]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  const currentPosts = posts.slice(startIndex, endIndex);
+  const currentPosts = filteredPosts.slice(startIndex, endIndex);
 
-  // Função para mudar de página
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      // Scroll para o topo do feed quando mudar de página
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  // Função para gerar números de páginas visíveis
   const getVisiblePages = () => {
     const delta = 2;
     const range = [];
     const rangeWithDots = [];
 
-    // Se tiver poucas páginas, mostra todas
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) {
         range.push(i);
@@ -62,24 +105,20 @@ const Feed = () => {
       return range;
     }
 
-    // Páginas ao redor da atual
     for (let i = Math.max(2, currentPage - delta); 
          i <= Math.min(totalPages - 1, currentPage + delta); 
          i++) {
       range.push(i);
     }
 
-    // Primeira página
     if (currentPage - delta > 2) {
       rangeWithDots.push(1, '...');
     } else {
       rangeWithDots.push(1);
     }
 
-    // Páginas do meio
     rangeWithDots.push(...range);
 
-    // Última página
     if (currentPage + delta < totalPages - 1) {
       rangeWithDots.push('...', totalPages);
     } else if (totalPages > 1) {
@@ -100,12 +139,27 @@ const Feed = () => {
         
         <div className={styles['content-feed']}>
           {loading && <p>Carregando posts...</p>}
-          {!loading && posts.length === 0 && <p>Nenhum post encontrado.</p>}
+          
+          {!loading && filteredPosts.length === 0 && (
+            <div className={styles['no-results']}>
+              <p>Nenhum post encontrado.</p>
+              {(searchTerm || filtros.dataInicio || filtros.dataFim || filtros.turma) && (
+                <p className={styles['no-results-hint']}>
+                  Tente ajustar os filtros ou fazer uma nova busca.
+                </p>
+              )}
+            </div>
+          )}
           
           {/* Info da paginação */}
-          {!loading && posts.length > 0 && (
+          {!loading && filteredPosts.length > 0 && (
             <div className={styles['pagination-info']}>
-              Mostrando {startIndex + 1}-{Math.min(endIndex, posts.length)} de {posts.length} posts
+              Mostrando {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} de {filteredPosts.length} posts
+              {filteredPosts.length !== allPosts.length && (
+                <span className={styles['filter-badge']}>
+                  {' '}(filtrados de {allPosts.length} total)
+                </span>
+              )}
             </div>
           )}
 
@@ -113,6 +167,7 @@ const Feed = () => {
           {currentPosts.map(post => (
             <Post 
               key={post.id}
+              id={post.id}
               avatar={post.avatar}
               professor_nome={post.professor_nome}
               professor_id={post.professor_id}
@@ -126,7 +181,6 @@ const Feed = () => {
           {/* Componente de Paginação */}
           {!loading && totalPages > 1 && (
             <div className={styles.pagination}>
-              {/* Botão Anterior */}
               <button
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -135,7 +189,6 @@ const Feed = () => {
                 ← Anterior
               </button>
 
-              {/* Números das páginas */}
               <div className={styles['pagination-numbers']}>
                 {getVisiblePages().map((page, index) => (
                   <span key={index}>
@@ -155,7 +208,6 @@ const Feed = () => {
                 ))}
               </div>
 
-              {/* Botão Próximo */}
               <button
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}

@@ -39,7 +39,7 @@ const CriarPost = () => {
     e.preventDefault();
     setErro("");
     try {
-      await criarPost(titulo, conteudo, turma);
+      await criarPost(titulo, conteudo, Number(turma));
       navigate("/uconnect/feed");
     } catch {
       setErro("Erro ao criar post.");

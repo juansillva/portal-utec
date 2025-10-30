@@ -1,20 +1,26 @@
 .feed {
   display: grid;
-  grid-template-columns: 340px 1fr 340px;
-  gap: 4rem;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 2rem;
   margin: 0 auto;
   width: 100%;
-  height: 100vh;
-  background-color: #F8F8F8;
-  
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 1rem;
 
-  @media (max-width: 1200px) {
-    grid-template-columns: 360px 1fr;
-    
+  @media (max-width: 1300px) {
+    grid-template-columns: 260px 1fr 260px;
+    gap: 1.5rem;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1100px) {
+    grid-template-columns: 240px 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
+    padding: 0.5rem;
   }
 }
 
@@ -23,34 +29,53 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   grid-column: 2;
+
+  @media (max-width: 900px) {
+    grid-column: 1;
+  }
 }
 
 .header-feed {
   width: 100%;
+  background-color: #fff;
 }
 
 .content-feed {
-  flex: 1;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px; // limita a largura para melhor leitura
   padding: 1rem;
-
 }
-// Classe para a sidebar direita
+
 .sidebar-right {
   grid-column: 3;
+  background-color: #fff;
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
 }
 
-/* Adicione estes estilos ao seu Feed.module.scss */
+/* Sidebar esquerda */
+.sidebar-left {
+  grid-column: 1;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
 
 .pagination-info {
-  margin-bottom: 1rem;
+  margin: 1rem auto;
   padding: 0.5rem 1rem;
-  background-color: #f8f9fa;
+  background-color: #fff;
   border-radius: 8px;
   font-size: 0.9rem;
   color: #6c757d;
   text-align: center;
+  width: fit-content;
 }
 
 .pagination {
@@ -60,11 +85,12 @@
   gap: 0.5rem;
   margin-top: 2rem;
   padding: 1rem;
+  flex-wrap: wrap;
 
   .pagination-btn {
     background-color: #fff;
     border: 1px solid #dee2e6;
-    color: #007bff;
+    color: #0474c4;
     padding: 0.5rem 1rem;
     border-radius: 6px;
     cursor: pointer;
@@ -72,28 +98,28 @@
     transition: all 0.2s ease;
 
     &:hover:not(.disabled) {
-      background-color: #007bff;
+      background-color: #0474c4;
       color: white;
-      border-color: #007bff;
+      border-color: #0474c4;
     }
 
     &.disabled {
       background-color: #f8f9fa;
       color: #6c757d;
       cursor: not-allowed;
-      border-color: #dee2e6;
     }
   }
 
   .pagination-numbers {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.25rem;
     align-items: center;
 
     .pagination-number {
       background-color: #fff;
       border: 1px solid #dee2e6;
-      color: #007bff;
+      color: #0474c4;
       padding: 0.5rem 0.75rem;
       border-radius: 6px;
       cursor: pointer;
@@ -102,13 +128,12 @@
       transition: all 0.2s ease;
 
       &:hover {
-        background-color: #e9ecef;
+        background-color: #f0f9ff;
       }
 
       &.active {
-        background-color: #007bff;
-        color: white;
-        border-color: #007bff;
+        background-color: #0474c4;
+        color: #fff;
       }
     }
 
@@ -120,28 +145,26 @@
   }
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .pagination {
-    flex-wrap: wrap;
-    gap: 0.25rem;
+.no-results {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin: 1rem 0;
 
-    .pagination-btn {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-    }
-
-    .pagination-numbers {
-      .pagination-number {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.8rem;
-        min-width: 35px;
-      }
-    }
+  p {
+    margin: 0.5rem 0;
+    color: #6b7280;
   }
 
-  .pagination-info {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+  .no-results-hint {
+    font-size: 0.875rem;
+    color: #9ca3af;
   }
+}
+
+.filter-badge {
+  color: #0474c4;
+  font-weight: 600;
 }

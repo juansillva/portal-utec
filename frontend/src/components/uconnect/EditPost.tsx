@@ -4,38 +4,39 @@ import HeaderUconnect from "../../components/uconnect/HeaderUconnect";
 import Sidebar from "../../components/uconnect/SidebarLeft";
 import SidebarRight from "../../components/uconnect/SidebarRight";
 import { buscarPostPorId } from "../../services/buscarPostPorID";
+import { atualizarPost } from "../../services/atualizarPost";
 import styles from "../../styles/uconnect/CriarPost.module.scss";
 
 const EditPost = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // States principais
   const [titulo, setTitulo] = useState("");
+  const [conteudo, setConteudo] = useState("");
   const [turma, setTurma] = useState("");
   const [turmas, setTurmas] = useState<{ id: number; nome: string }[]>([]);
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const numericId = Number(id);
 
-  // 🧠 Buscar turmas do professor no localStorage
   useEffect(() => {
     const stored = localStorage.getItem("professor");
-    if (!stored) return;
-
-    try {
-      const parsed = JSON.parse(stored);
-      setTurmas(Array.isArray(parsed.turmas) ? parsed.turmas : []);
-    } catch {
-      console.error("Erro ao carregar turmas do localStorage");
-      setTurmas([]);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setTurmas(Array.isArray(parsed.turmas) ? parsed.turmas : []);
+      } catch {
+        setTurmas([]);
+      }
     }
   }, []);
 
-  // 📡 Buscar post pelo ID
   useEffect(() => {
+    if (!numericId) return;
+
     const fetchPost = async () => {
+      setLoading(true);
       try {
         const response = await buscarPostPorId(numericId);
         const data = response.data;
@@ -46,55 +47,49 @@ const EditPost = () => {
         }
 
         setTitulo(data.titulo);
+        setConteudo(data.conteudo);
         setTurma(String(data.turma_id));
       } catch (error) {
         console.error("Erro ao buscar post:", error);
         setErro("Erro ao carregar post para edição");
       } finally {
-        setLoadingPost(false);
+        setLoading(false);
       }
     };
 
-    if (numericId) fetchPost();
+    fetchPost();
   }, [numericId]);
 
-  // 💾 Atualizar post
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErro("");
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErro("");
 
-    if (!titulo.trim()) {
-      return setErro("Por favor, preencha o título do post!");
-    }
-    if (!turma) {
-      return setErro("Por favor, selecione uma turma!");
-    }
+  console.log("📤 Enviando atualização:", {
+    id: numericId,
+    titulo: titulo.trim(),
+    conteudo: conteudo.trim(),
+    turma_id: Number(turma)
+  });
 
-    setLoading(true);
 
-    try {
-      const response = await fetch(`http://192.168.1.113:3001/posts/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          titulo: titulo.trim(),
-          turma_id: Number(turma),
-        }),
-      });
+  if (!titulo.trim()) return setErro("Por favor, preencha o título do post!");
+  if (!conteudo.trim()) return setErro("Por favor, preencha o conteúdo!");
+  if (!turma) return setErro("Por favor, selecione uma turma!");
 
-      if (!response.ok) throw new Error("Erro ao atualizar post");
+  setLoading(true);
+  try {
+    await atualizarPost(numericId, titulo.trim(), conteudo.trim(), Number(turma));
+    navigate("/uconnect/feed");
+  } catch (error: any) {
+    console.error("Erro ao atualizar post:", error);
+    const mensagem = error.response?.data?.message || "Erro ao atualizar post. Tente novamente.";
+    setErro(mensagem);
+  } finally {
+    setLoading(false);
+  }
+};
 
-      navigate("/uconnect/feed");
-    } catch (error) {
-      console.error("Erro ao atualizar post:", error);
-      setErro("Erro ao atualizar post. Tente novamente.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 🌀 Loading State
-  
+  if (!id) return <p>ID do post não informado.</p>;
 
   return (
     <div className={styles["create-post"]}>
@@ -111,7 +106,6 @@ const EditPost = () => {
           <hr />
 
           <form onSubmit={handleSubmit}>
-            {/* 🧾 Campo título */}
             <div className={styles["form-group"]}>
               <label htmlFor="title">Título do Post</label>
               <input
@@ -124,18 +118,17 @@ const EditPost = () => {
               />
             </div>
 
-            {/* ✍️ Editor */}
             <div className={styles["form-group"]}>
-              <label>Conteúdo do Post</label>
-              <div className={styles["editor-container"]}>
-                {/* Aqui entrará o editor (Tiptap, Quill, etc) futuramente */}
-                <p className={styles["placeholder-editor"]}>
-                  Editor em desenvolvimento...
-                </p>
-              </div>
+              <label htmlFor="content">Conteúdo do Post</label>
+              <textarea
+                id="content"
+                value={conteudo}
+                onChange={(e) => setConteudo(e.target.value)}
+                placeholder="Escreva o conteúdo do post"
+                required
+              />
             </div>
 
-            {/* 🏫 Seleção de turma */}
             <div className={styles["form-group"]}>
               <label htmlFor="turma">Turma</label>
               <select
@@ -153,10 +146,8 @@ const EditPost = () => {
               </select>
             </div>
 
-            {/* ⚠️ Erro */}
             {erro && <div className={styles.erro}>{erro}</div>}
 
-            {/* 🔘 Botões */}
             <div className={styles["button-group"]}>
               <button
                 type="button"
