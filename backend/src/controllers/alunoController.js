@@ -18,12 +18,12 @@ exports.acessoAluno = async (req, res) => {
 
     return res.status(200).json({
       message: "Acesso autorizado",
-      aluno: {
-        nome,
+      aluno:{
+        nome: nome,
         turma: turmaEncontrada.nome,
         turma_id: turmaEncontrada.id,
-        avatar: "aluno_padrao.svg",
-      },
+        icon: turmaEncontrada.icon
+      }
     });
   } catch (err) {
     console.error(err);

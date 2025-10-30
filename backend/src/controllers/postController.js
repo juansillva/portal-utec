@@ -44,9 +44,6 @@ exports.criarPost = async (req, res) => {
           : post.professor.avatar
       }
     };
-
-    console.log('Post criado com dados da turma:', postJson.turma);
-    console.log('Avatar URL gerada:', postJson.professor.avatarUrl);
     res.status(201).json({ message: "Post criado com sucesso", post: postJson });
   } catch (err) {
     console.error('Erro ao criar post:', err);
@@ -55,7 +52,7 @@ exports.criarPost = async (req, res) => {
 };
 
 exports.excluirPost = async (req, res) => {
-  const { id, idUser } = req.params;
+  const { id} = req.params;
 
   try {
     const post = await prisma.post.findUnique({
@@ -91,12 +88,6 @@ exports.listarPosts = async (req, res) => {
       },
     });
 
-    console.log('Posts encontrados:', posts.length);
-    if (posts[0]) {
-      console.log('Primeiro post com turma:', posts[0].turma);
-      console.log('Avatar do primeiro post:', posts[0].professor?.avatar);
-    }
-
     const baseUrl = `${req.protocol}://${req.get('host')}`;
 
     const postsComAvatarUrl = posts.map(post => {
@@ -112,8 +103,6 @@ exports.listarPosts = async (req, res) => {
         } : null
       };
     });
-
-    console.log('Avatar URL final do primeiro post:', postsComAvatarUrl[0]?.professor?.avatarUrl);
     res.json(postsComAvatarUrl);
   } catch (err) {
     console.error('Erro ao listar posts:', err);

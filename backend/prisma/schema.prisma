@@ -36,7 +36,7 @@ model ProfessorTurma {
 model Post {
   id               Int           @id @default(autoincrement())
   titulo           String
-  conteudo         String        // Obrigatório
+  conteudo         String        
   data_criacao     DateTime      @default(now())
   data_atualizacao DateTime?     @updatedAt
   professor        Professor     @relation(fields: [professor_id], references: [id])

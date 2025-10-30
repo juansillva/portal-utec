@@ -17,7 +17,6 @@ exports.acessoProfessor = async (req, res) => {
     const igual = await bcrypt.compare(senha, professor.senha);
     if (!igual) return res.status(401).json({ message: "Senha incorreta" });
 
-    // Buscar turmas do professor
     const turmas = await prisma.professorTurma.findMany({
       where: { professor_id: professor.id },
       include: { turma: true },
