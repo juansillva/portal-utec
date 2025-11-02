@@ -1,76 +1,85 @@
-'use server'
-import { useEffect, useState, useMemo } from 'react';
-import HeaderUconnect from './HeaderUconnect';
-import Sidebar from './SidebarLeft';
-import SidebarRight from './SidebarRight';
-import Post from './Post';
-import { getPosts } from '../../services/buscarPosts';
-import { Post as PostType } from '../../types/typePost';
-import { useSearch } from '../../contexts/SearchContext';
-import styles from '../../styles/uconnect/Feed.module.scss';
+"use server";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearch } from "../../contexts/SearchContext";
+import { getPosts } from "../../services/buscarPosts";
+import styles from "../../styles/uconnect/Feed.module.scss";
+import { Post as PostType } from "../../types/typePost";
+import HeaderUconnect from "./HeaderUconnect";
+import Post from "./Post";
+import Sidebar from "./SidebarLeft";
+import SidebarRight from "./SidebarRight";
 
 const Feed = () => {
   const { searchTerm, filtros, setTurmas } = useSearch();
   const [allPosts, setAllPosts] = useState<PostType[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  const [error, setError] = useState<string | null>(null);
+  const fetchedRef = useRef(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
   useEffect(() => {
+    if (fetchedRef.current) return;
+
     async function fetchPosts() {
       try {
-        console.log('Iniciando busca de posts...');
+        setError(null);
         const data = await getPosts();
         const postsArray = Array.isArray(data) ? data : [];
         setAllPosts(postsArray);
-        
-        // Extrair turmas únicas
+
         const turmasUnicas = Array.from(
-          new Set(postsArray.map(p => p.turma_nome).filter(Boolean))
-        ).map((nome, index) => ({ id: index + 1, nome: nome || '' }));
+          new Set(postsArray.map((p) => p.turma_nome).filter(Boolean))
+        ).map((nome, index) => ({ id: index + 1, nome: nome || "" }));
         setTurmas(turmasUnicas);
-      } catch (error) {
-        console.error('Erro ao buscar posts no Feed:', error);
+
+        fetchedRef.current = true;
+      } catch (err) {
+        console.error("Erro ao buscar posts no Feed:", err);
+        setError(
+          "Não foi possível carregar os posts. Tente novamente mais tarde."
+        );
         setAllPosts([]);
       } finally {
         setLoading(false);
       }
     }
+
     fetchPosts();
-  }, [setTurmas]);
+  }, []); // Remove setTurmas das dependências
 
   const filteredPosts = useMemo(() => {
     let resultados = [...allPosts];
 
     if (searchTerm.trim()) {
       const termoLower = searchTerm.toLowerCase();
-      resultados = resultados.filter(post =>
-        post.titulo.toLowerCase().includes(termoLower) ||
-        post.conteudo.toLowerCase().includes(termoLower) ||
-        post.professor_nome.toLowerCase().includes(termoLower)
+      resultados = resultados.filter(
+        (post) =>
+          post.titulo.toLowerCase().includes(termoLower) ||
+          post.conteudo.toLowerCase().includes(termoLower) ||
+          post.professor_nome.toLowerCase().includes(termoLower)
       );
     }
 
     if (filtros?.dataInicio) {
       const dataInicio = new Date(filtros.dataInicio);
-      resultados = resultados.filter(post => 
-        new Date(post.data_criacao) >= dataInicio
+      resultados = resultados.filter(
+        (post) => new Date(post.data_criacao) >= dataInicio
       );
     }
 
     if (filtros?.dataFim) {
       const dataFim = new Date(filtros.dataFim);
       dataFim.setHours(23, 59, 59, 999);
-      resultados = resultados.filter(post => 
-        new Date(post.data_criacao) <= dataFim
+      resultados = resultados.filter(
+        (post) => new Date(post.data_criacao) <= dataFim
       );
     }
 
     if (filtros?.turma) {
-      resultados = resultados.filter(post => 
-        post.turma_nome === filtros.turma
+      resultados = resultados.filter(
+        (post) => post.turma_nome === filtros.turma
       );
     }
 
@@ -89,7 +98,7 @@ const Feed = () => {
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -105,14 +114,16 @@ const Feed = () => {
       return range;
     }
 
-    for (let i = Math.max(2, currentPage - delta); 
-         i <= Math.min(totalPages - 1, currentPage + delta); 
-         i++) {
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
       range.push(i);
     }
 
     if (currentPage - delta > 2) {
-      rangeWithDots.push(1, '...');
+      rangeWithDots.push(1, "...");
     } else {
       rangeWithDots.push(1);
     }
@@ -120,52 +131,83 @@ const Feed = () => {
     rangeWithDots.push(...range);
 
     if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push('...', totalPages);
+      rangeWithDots.push("...", totalPages);
     } else if (totalPages > 1) {
       rangeWithDots.push(totalPages);
     }
 
-    return rangeWithDots.filter((item, index, arr) => arr.indexOf(item) === index);
+    return rangeWithDots.filter(
+      (item, index, arr) => arr.indexOf(item) === index
+    );
   };
 
   return (
     <div className={styles.feed}>
       <Sidebar />
-      
-      <div className={styles['main-content']}>
-        <div className={styles['header-feed']}>
+
+      <div className={styles["main-content"]}>
+        <div className={styles["header-feed"]}>
           <HeaderUconnect />
         </div>
-        
-        <div className={styles['content-feed']}>
-          {loading && <p>Carregando posts...</p>}
-          
-          {!loading && filteredPosts.length === 0 && (
-            <div className={styles['no-results']}>
+
+        <div className={styles["content-feed"]}>
+          {loading && (
+            <div className={styles["loading-container"]}>
+              <div className={styles["loading-spinner"]} />
+              <span className={styles["loading-text"]}>
+                Carregando posts...
+              </span>
+            </div>
+          )}
+
+          {!loading && error && (
+            <div className={styles["no-results"]}>
+              <p>{error}</p>
+              <button
+                onClick={() => {
+                  setError(null);
+                  setLoading(true);
+                  fetchedRef.current = false;
+                }}
+                className={styles["retry-button"]}
+              >
+                Tentar novamente
+              </button>
+            </div>
+          )}
+
+          {!loading && !error && filteredPosts.length === 0 && (
+            <div className={styles["no-results"]}>
               <p>Nenhum post encontrado.</p>
-              {(searchTerm || filtros.dataInicio || filtros.dataFim || filtros.turma) && (
-                <p className={styles['no-results-hint']}>
+              {(searchTerm ||
+                filtros.dataInicio ||
+                filtros.dataFim ||
+                filtros.turma) && (
+                <p className={styles["no-results-hint"]}>
                   Tente ajustar os filtros ou fazer uma nova busca.
                 </p>
               )}
             </div>
           )}
-          
+
           {/* Info da paginação */}
           {!loading && filteredPosts.length > 0 && (
-            <div className={styles['pagination-info']}>
-              Mostrando {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} de {filteredPosts.length} posts
+            <div className={styles["pagination-info"]}>
+              Mostrando {startIndex + 1}-
+              {Math.min(endIndex, filteredPosts.length)} de{" "}
+              {filteredPosts.length} posts
               {filteredPosts.length !== allPosts.length && (
-                <span className={styles['filter-badge']}>
-                  {' '}(filtrados de {allPosts.length} total)
+                <span className={styles["filter-badge"]}>
+                  {" "}
+                  (filtrados de {allPosts.length} total)
                 </span>
               )}
             </div>
           )}
 
           {/* Posts da página atual */}
-          {currentPosts.map(post => (
-            <Post 
+          {currentPosts.map((post) => (
+            <Post
               key={post.id}
               id={post.id}
               avatar={post.avatar}
@@ -184,21 +226,23 @@ const Feed = () => {
               <button
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`${styles['pagination-btn']} ${currentPage === 1 ? styles.disabled : ''}`}
+                className={`${styles["pagination-btn"]} ${
+                  currentPage === 1 ? styles.disabled : ""
+                }`}
               >
                 ← Anterior
               </button>
 
-              <div className={styles['pagination-numbers']}>
+              <div className={styles["pagination-numbers"]}>
                 {getVisiblePages().map((page, index) => (
                   <span key={index}>
-                    {page === '...' ? (
+                    {page === "..." ? (
                       <span className={styles.dots}>...</span>
                     ) : (
                       <button
                         onClick={() => goToPage(page as number)}
-                        className={`${styles['pagination-number']} ${
-                          currentPage === page ? styles.active : ''
+                        className={`${styles["pagination-number"]} ${
+                          currentPage === page ? styles.active : ""
                         }`}
                       >
                         {page}
@@ -211,7 +255,9 @@ const Feed = () => {
               <button
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`${styles['pagination-btn']} ${currentPage === totalPages ? styles.disabled : ''}`}
+                className={`${styles["pagination-btn"]} ${
+                  currentPage === totalPages ? styles.disabled : ""
+                }`}
               >
                 Próximo →
               </button>
@@ -219,10 +265,7 @@ const Feed = () => {
           )}
         </div>
       </div>
-
-      <div className={styles['sidebar-right']}>
         <SidebarRight />
-      </div>
     </div>
   );
 };

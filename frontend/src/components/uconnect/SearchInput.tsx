@@ -110,7 +110,7 @@ function SearchInput({ onSearch, turmas = [] }: SearchInputProps) {
           <Search className={styles['search-icon']} />
           <input
             type="text"
-            placeholder="Buscar posts por título, conteúdo ou professor..."
+            placeholder="Buscar postagens ou atividades..."
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
             className={styles['search-input']}

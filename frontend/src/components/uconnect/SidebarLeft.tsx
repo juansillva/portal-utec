@@ -1,19 +1,25 @@
-import styles from '../../styles/uconnect/SidebarLeft.module.scss'
+import styles from "../../styles/uconnect/SidebarLeft.module.scss";
 
-import logoUconnect from '../../assets/logo-uconnect.svg'
-import backgroundProfile from '../../assets/background-profile.svg'
+import backgroundProfile from "../../assets/background-profile.svg";
+import logoUconnect from "../../assets/logo-uconnect.svg";
 
-import { Camera, ChartNoAxesGanttIcon, FileText, Shapes } from 'lucide-react';
+import {
+  Camera,
+  ChartNoAxesGanttIcon,
+  FileText,
+  Menu,
+  Shapes,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
-import { Menu } from 'lucide-react';
-
 
 const SidebarLeft = () => {
   const [avatar, setAvatar] = useState<string | null>(null);
-  const [nome, setNome] = useState('');
-  const [role, setRole] = useState<'professor' | 'aluno' | null>(null);
-  const [turmas, setTurmas] = useState<{ id: number, nome: string, icon: string }[]>([]);
+  const [nome, setNome] = useState("");
+  const [role, setRole] = useState<"professor" | "aluno" | null>(null);
+  const [turmas, setTurmas] = useState<
+    { id: number; nome: string; icon: string }[]
+  >([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -23,11 +29,11 @@ const SidebarLeft = () => {
     const storedProfessor = localStorage.getItem("professor");
     if (storedProfessor) {
       try {
-        const parsed = JSON.parse(storedProfessor);
-        setNome(parsed.nome || '');
-        setAvatar(parsed.avatar);
-        setRole('professor');
-        setTurmas(parsed.turmas || []);
+        const professor = JSON.parse(storedProfessor);
+        setNome(professor.nome || "");
+        setAvatar(professor.avatar);
+        setRole("professor");
+        setTurmas(professor.turmas || []);
         return;
       } catch {
         console.error("Erro ao ler dados do professor");
@@ -38,11 +44,11 @@ const SidebarLeft = () => {
     const storedAluno = localStorage.getItem("aluno");
     if (storedAluno) {
       try {
-        const parsed = JSON.parse(storedAluno);
-        setNome(parsed.nome || '');
-        setAvatar(parsed.avatar || 'aluno_padrao.svg');
-        setRole('aluno');
-        setTurmas(parsed.turmas || []);
+        const aluno = JSON.parse(storedAluno);
+        setNome(aluno.nome || "");
+        setAvatar(aluno.avatar || "aluno_padrao.svg");
+        setRole("aluno");
+        setTurmas(aluno.turmas || []);
       } catch {
         console.error("Erro ao ler dados do aluno");
       }
@@ -51,92 +57,100 @@ const SidebarLeft = () => {
 
   return (
     <>
-    <button
-  className={styles.menuButton}
-  onClick={() => setIsMobileOpen(!isMobileOpen)}
->
-  <Menu />
-</button>
+      <button
+        className={styles.menuButton}
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+      >
+        <Menu />
+      </button>
 
-       <aside className={`${styles.sidebar} ${isMobileOpen ? styles.show : styles.hide}`}>
-     <img
-        className={styles.logoUconnect}
-        src={logoUconnect}
-        alt="logo Uconnect"
-        onClick={() => navigate('/')}
-        style={{ cursor: 'pointer' }} // opcional, só pra indicar que é clicável
-      />
-      
-      <div className={styles['container-profile']}>
-        <img className={styles.backgroundProfile} src={backgroundProfile} alt="Background" />
-        {avatar && (
+      <aside
+        className={`${styles.sidebarLeft} ${
+          isMobileOpen ? styles.show : styles.hide
+        }`}
+      >
+        <img
+          className={styles.logoUconnect}
+          src={logoUconnect}
+          alt="logo Uconnect"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }} // opcional, só pra indicar que é clicável
+        />
+
+        <div className={styles["container-profile"]}>
           <img
-            className={styles.avatarProfile}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${avatar}`} 
-            alt={`Avatar do ${role}`}
+            className={styles.backgroundProfile}
+            src={backgroundProfile}
+            alt="Background"
           />
-        )}
-        <div className={styles['profile-info']}>
-        <p>{nome}</p>
-        <span>{role === 'professor' ? 'Professor' : 'Aluno'}</span>
-        </div>
-      </div>
-
-      <nav>
-        <ul>
-          <li>
-            <NavLink
-              to="/uconnect/feed"
-              className={({ isActive }) =>
-                isActive ? styles.linkAtivo : styles.link
-              }
-            >
-              <ChartNoAxesGanttIcon className={styles.icone} />
-              <span>Feed</span>
-            </NavLink>
-          </li>
-
-          {role === 'professor' && (
-            <>
-              <li>
-                <NavLink
-                  to="/uconnect/turmas"
-                  className={({ isActive }) =>
-                    isActive ? styles.linkAtivo : styles.link
-                  }
-                >
-                  <Shapes className={styles.icone} />
-                  <span>Turmas</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/uconnect/arquivos"
-                  className={({ isActive }) =>
-                    isActive ? styles.linkAtivo : styles.link
-                  }
-                >
-                  <FileText className={styles.icone} />
-                  <span>Arquivos</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/uconnect/fotos"
-                  className={({ isActive }) =>
-                    isActive ? styles.linkAtivo : styles.link
-                  }
-                >
-                  <Camera className={styles.icone} />
-                  <span>Fotos</span>
-                </NavLink>
-              </li>
-            </>
+          {avatar && (
+            <img
+              className={styles.avatarProfile}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${avatar}`}
+              alt={`Avatar do ${role}`}
+            />
           )}
-        </ul>
-      </nav>
+          <div className={styles["profile-info"]}>
+            <p>{nome}</p>
+            <span>{role === "professor" ? "Professor" : "Aluno"}</span>
+          </div>
+        </div>
 
-      {turmas.length > 0 && (
+        <nav>
+          <ul>
+            <li>
+              <NavLink
+                to="/uconnect/feed"
+                className={({ isActive }) =>
+                  isActive ? styles.linkAtivo : styles.link
+                }
+              >
+                <ChartNoAxesGanttIcon className={styles.icone} />
+                <span>Feed</span>
+              </NavLink>
+            </li>
+
+            {role === "professor" && (
+              <>
+                <li>
+                  <NavLink
+                    to="/uconnect/turmas"
+                    className={({ isActive }) =>
+                      isActive ? styles.linkAtivo : styles.link
+                    }
+                  >
+                    <Shapes className={styles.icone} />
+                    <span>Turmas</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/uconnect/arquivos"
+                    className={({ isActive }) =>
+                      isActive ? styles.linkAtivo : styles.link
+                    }
+                  >
+                    <FileText className={styles.icone} />
+                    <span>Arquivos</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/uconnect/fotos"
+                    className={({ isActive }) =>
+                      isActive ? styles.linkAtivo : styles.link
+                    }
+                  >
+                    <Camera className={styles.icone} />
+                    <span>Fotos</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+
+        {turmas.length > 0 && (
         <div className={styles['box-minhas-turmas']}>
           <p className={styles['minhas-turmas']}>MINHAS TURMAS</p>
 
@@ -154,10 +168,9 @@ const SidebarLeft = () => {
           ))}
         </div>
       )}
-    </aside>
+      </aside>
     </>
-   
-  )
-}
+  );
+};
 
 export default SidebarLeft;

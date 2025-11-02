@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logoUconnectWhite from "../../assets/logo-uconnect-white.svg";
 import styles from '../../styles/uconnect/AcessoProfessor.module.scss'
 import { acessoProfessor } from "../../services/acessoProfessor";
+import { Professor } from "../../types/typeTurma";
 
 const AcessoProfessor = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ const AcessoProfessor = () => {
     e.preventDefault();
 
     try {
-      const professor = await acessoProfessor(email, senha);
+      const professor: Professor = await acessoProfessor(email, senha);
       localStorage.setItem("professor", JSON.stringify(professor));
       navigate(`/uconnect/feed/`);
     } catch {
