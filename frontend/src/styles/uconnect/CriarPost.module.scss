@@ -1,12 +1,10 @@
  .create-post {
    display: grid;
   grid-template-columns: 300px 1fr 300px;
-  gap: 2rem;
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
   min-height: 100vh;
   background-color: #fff;
-  padding: 1rem;
 
   @media (max-width: 1200px) {
     grid-template-columns: 360px 1fr;
@@ -17,10 +15,11 @@
   }
 
   & .main-content-create-post {
-   display: flex;
+     display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
+  align-items: center;
+  justify-items: center;
   min-height: 100vh;
   grid-column: 2;
 
@@ -30,14 +29,14 @@
   }
 
   & .header-create-post {
-    width: 100%;
+    width: 90%;
   }
 
   & .content-create-post {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 600px; // limita a largura para melhor leitura
-  padding: 1rem;
+
+  margin: 10px auto;
+  width: 80%;
+  
 
     & h2 {
       color: #333;
